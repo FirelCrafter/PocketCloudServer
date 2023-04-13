@@ -34,4 +34,7 @@ class File(FileSystemNode):
     
 class Directory(FileSystemNode):
     node_type = NodeType.DIRECTORY
+    
+    def to_dict(self):
+        return super().to_dict(self.node_type)
         

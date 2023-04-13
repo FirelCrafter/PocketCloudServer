@@ -21,7 +21,7 @@ def upload_file():
         return make_response(jsonify({"status": "error", "message": "no file provided"}), 400)
     
     file = request.files['file']
-    parent_id = request.form.get("parent_id", 0, type=int)
+    parent_id = request.form.get("parentId", 0, type=int)
     
     if file.filename == '':
         return make_response(jsonify({"status": "error", "message": "no file provided"}), 400)

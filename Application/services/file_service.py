@@ -19,8 +19,10 @@ class FileService:
         file_path = os.path.join(Config.UPLOAD_FOLDER, str(self.next_node_id)) if save_to_disk else None
         new_file = File(file.filename, file_ext, parent_id=parent_id, node_id=self.next_node_id, file_path=file_path)
         self.nodes[self.next_node_id] = new_file
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         self.next_node_id += 1
         file.save(file_path)
+        file_size = os.path.getsize(file_path)
         
     def get_file_list(self):
         result = {
@@ -29,6 +31,7 @@ class FileService:
             "directories": [],
             "files": []
         }
+        self._populate_children(result["directory"], result["directories"], result["files"])
         return result
     
     def _populate_children(self, directory, directories, files):

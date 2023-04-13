@@ -32,10 +32,10 @@
 
     <h2>File list</h2>
     <button onclick="getFileList()">Refresh file list</button>
-    <pre id="filList"></pre>
+    <pre id="fileList"></pre>
 
     <script>
-        async fuinction getFileList() {
+        async function getFileList() {
             const response = await fetch('/files/list');
             const data = await response.json();
             document.getElementById('fileList').textContent = JSON.stringify(data, null, 2);
