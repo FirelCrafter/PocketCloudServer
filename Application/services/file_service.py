@@ -1,6 +1,6 @@
 import os
 import shutil
-from Application.models.file_system_model import File, Directory
+from Application.models.file_system_model import NodeType, File, Directory
 from Application.config import Config
 
 class FileService:
@@ -39,12 +39,12 @@ class FileService:
         directory["files"] = []
         for node_id, node in self.nodes.items():
             if node.parent_id == directory["nodeId"]:
-                if node.node_type == Directory:
+                if node.node_type == NodeType.DIRECTORY.value:
                     child_dir = node.to_dict()
                     directory["directories"].append(child_dir)
                     directories.append(child_dir)
                     self._populate_children(child_dir, directories, files)
-                elif node.node_type == File:
+                elif node.node_type == NodeType.FILE.value:
                     child_file = node.to_dict()
                     directory["files"].append(child_file)
                     files.append(child_file)
