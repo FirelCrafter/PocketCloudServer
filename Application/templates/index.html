@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Storage</title>
+</head>
+<body>
+    <h1>File Storage</h1>
+
+    <h2>Create Directory</h2>
+    <form action="/files/directories" method="post">
+        <label for="parent_id">Parent Directory ID:</label>
+        <input type="number" id="parentId" name="parentId" value="0">
+        <br>
+        <label for="name">Directory name:</label>
+        <input type="text" id="name" name="Name" required>
+        <br>
+        <input type="submit" value="Create Directory">
+    </form>
+
+    <h2>Upload File</h2>
+    <form action="/files/upload" method="post" enctype="multipart/form-data">
+        <label for="parentId">Parent directory ID:</label>
+        <input type="number" id="parentId" name="parentId" value="0">
+        <br>
+        <label for="file">Select File</label>
+        <input type="file" id="file" name="file" required>
+        <br>
+        <input type="submit" value="Upload File">
+    </form>
+
+    <h2>File list</h2>
+    <button onclick="getFileList()">Refresh file list</button>
+    <pre id="filList"></pre>
+
+    <script>
+        async fuinction getFileList() {
+            const response = await fetch('/files/list');
+            const data = await response.json();
+            document.getElementById('fileList').textContent = JSON.stringify(data, null, 2);
+        }
+
+        getFileList();
+    </script>
+</body>
+</html>
