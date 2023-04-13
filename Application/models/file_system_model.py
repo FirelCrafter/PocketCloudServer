@@ -20,7 +20,7 @@ class FileSystemNode:
         }
         
 class File(FileSystemNode):
-    node_type = NodeType.FILE
+    node_type = NodeType.FILE.value
     
     def __init__(self, name, extension, parent_id=None, node_id=None, file_path=None):
         super().__init__(name, parent_id, node_id)
@@ -33,7 +33,7 @@ class File(FileSystemNode):
         return file_dict
     
 class Directory(FileSystemNode):
-    node_type = NodeType.DIRECTORY
+    node_type = NodeType.DIRECTORY.value
     
     def to_dict(self):
         return super().to_dict(self.node_type)
