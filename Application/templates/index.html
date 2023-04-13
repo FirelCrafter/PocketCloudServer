@@ -30,18 +30,30 @@
         <input type="submit" value="Upload File">
     </form>
 
+    <h2>Storage stats</h2>
+    <button onclick="getStorageStats()">Refresh storage stats</button>
+    <pre id="storageStats"></pre>
+
     <h2>File list</h2>
     <button onclick="getFileList()">Refresh file list</button>
     <pre id="fileList"></pre>
 
     <script>
+
         async function getFileList() {
             const response = await fetch('/files/list');
             const data = await response.json();
             document.getElementById('fileList').textContent = JSON.stringify(data, null, 2);
         }
 
+        async function getStorageStats() {
+            const response = await fetch('files/stats');
+            const data = await response.json();
+            document.getElementById('storageStats').textContent = JSON.stringify(data, null, 2);
+        }
+
         getFileList();
+        getStorageStats();
     </script>
 </body>
 </html>
