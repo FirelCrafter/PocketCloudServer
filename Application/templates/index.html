@@ -6,6 +6,26 @@
     <title>File Storage</title>
 </head>
 <body>
+
+    <h2>Enter PIN</h2>
+    <form action="files/verifyPin" method="post">
+        <label for="pin">PIN Code</label>
+        <input type="password" id="pin", name="pin" maxlength="4" pattern="\d{4}" required>
+        <br>
+        <input type="submit" value="Verify PIN">
+    </form>
+
+    <h2>Change PIN</h2>
+    <form action="/files/changePin", method="post">
+        <label for="currentPin">Current PIN code</label>
+        <input type="text" id="currentPin" name="currentPin" maxlength=4 pattern="\d{4}" required>
+        <br>
+        <label for="newPin">New PIN code:</label>
+        <input type="text" id="newPin" name="newPin" maxlength="4" pattern="\d{4}" required>
+        <br>
+        <input type="submit" value"Change PIN">
+    </form>
+
     <h1>File Storage</h1>
 
     <h2>Create Directory</h2>

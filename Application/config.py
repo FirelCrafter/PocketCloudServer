@@ -7,8 +7,9 @@ UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static/uploads')
 class Config(object):
     DEBUG = False
     TESTING = False
-    SECRET_KEY = 'pocket_cloud'
+    SECRET_KEY = 'cloud'
     UPLOAD_FOLDER = UPLOAD_FOLDER
+    PIN_CODE ='1111'
     
 class ProductionConfig(Config):
     pass

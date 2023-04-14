@@ -6,17 +6,19 @@ class NodeType(Enum):
     DIRECTORY = "directory"
 
 class FileSystemNode:
-    def __init__(self, name, parent_id=None, node_id=None):
+    def __init__(self, name, parent_id=None, node_id=None, path=None):
         self.name = name
         self.parent_id = parent_id
         self.node_id = node_id
+        self.path = path
         
     def to_dict(self, node_type):
         return {
             "name": self.name,
             "nodeType": node_type,
             "parentId": self.parent_id,
-            "nodeId": self.node_id
+            "nodeId": self.node_id,
+            "path": self.path
         }
         
 class File(FileSystemNode):

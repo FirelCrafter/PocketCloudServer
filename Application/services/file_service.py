@@ -9,20 +9,19 @@ class FileService:
         self.nodes = {0: self.root}
         self.next_node_id = 1
         
-    def create_directory(self, name, parent_id):
-        directory = Directory(name=name, parent_id=parent_id, node_id=self.next_node_id)
+    def create_directory(self, name, parent_id, path):
+        directory = Directory(name=name, parent_id=parent_id, node_id=self.next_node_id, path=path)
         self.nodes[self.next_node_id] = directory
         self.next_node_id += 1
         
-    def upload_file(self, file, parent_id, save_to_disk=True):
+    def upload_file(self, file, parent_id, path, save_to_disk=True):
         file_ext = file.filename.rsplit('.', 1)[-1].lower()
-        file_path = os.path.join(Config.UPLOAD_FOLDER, str(self.next_node_id)) if save_to_disk else None
-        new_file = File(file.filename, file_ext, parent_id=parent_id, node_id=self.next_node_id, file_path=file_path)
+        file_path = os.path.join(Config.UPLOAD_FOLDER, path, str(self.next_node_id)) if save_to_disk else None
+        new_file = File(file.filename, file_ext, parent_id=parent_id, node_id=self.next_node_id, file_path=file_path, path=path)
         self.nodes[self.next_node_id] = new_file
-        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         self.next_node_id += 1
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
         file.save(file_path)
-        file_size = os.path.getsize(file_path)
         
     def get_file_list(self):
         result = {
