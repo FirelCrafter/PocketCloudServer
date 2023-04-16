@@ -19,9 +19,8 @@ def require_pin_verification(func):
 
 @file_blueprint.route('/verifyPin', methods=['POST'])
 def verify_pin():
-    entered_pin = request.form.get("pin", type=str)
+    entered_pin = request.get_json(force=True)["pin"]
     if entered_pin is None or len(entered_pin) != 4:
-        print("PIN", entered_pin)
         return make_response(jsonify({"status": "error", "message": "Invalid PIN format"}), 400)
     
     stored_pin = str(current_app.config['PIN_CODE'])
@@ -34,8 +33,8 @@ def verify_pin():
 @file_blueprint.route('/changePin', methods=["POST"])
 @require_pin_verification
 def change_pin():
-    current_pin = request.form.get("currentPin")
-    new_pin = request.form.get("newPin")
+    current_pin = request.get_json(force=True)["currentPin"]
+    new_pin = request.get_json(force=True)["newPin"]
     print(f"CURRENT PIN: {current_pin}")
     if current_pin == current_app.config['PIN_CODE']:
         config_file_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'config.py')
