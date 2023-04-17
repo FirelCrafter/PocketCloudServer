@@ -2,6 +2,7 @@ import os
 import shutil
 from Application.models.file_system_model import NodeType, File, Directory
 from Application.config import Config
+from math import floor
 
 class FileService:
     def __init__(self):
@@ -68,8 +69,8 @@ class FileService:
                     stats["extensions"][node.extension] = 1
         
         disk_usage = shutil.disk_usage(Config.UPLOAD_FOLDER)
-        stats["totalVolume"] = disk_usage.total
-        stats["freeSpace"] = disk_usage.free
+        stats["totalVolume"] = floor(disk_usage.total/1048576)
+        stats["freeSpace"] = floor(disk_usage.free/1048576)
         
         return stats
     
